@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
+
+    <style>
+        .error {
+            color: red;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body ng-app="companiesManagerApp">
+    <div ng-controller="CompaniesController as companiesCtrl">
+        <ul>
+            <li ng-repeat="company in companiesCtrl.companiesTree" ng-include="'tree.template.html'"></li>
+        </ul>
+        <hr>
+
+        <button ng-click="companiesCtrl.toggleForm()" ng-show="!companiesCtrl.form.visible">Add new company</button>
+
+        <form name="companiesCtrl.form.formCtrl" ng-submit="companiesCtrl.submitForm()"
+              ng-show="companiesCtrl.form.visible">
+            Company name:
+            <input name="name" ng-model="companiesCtrl.newCompany.name" ng-change="companiesCtrl.checkInput()"
+                   placeholder="Enter company name..." required>
+            <span class="error" ng-show="companiesCtrl.form.error.nameExists">*This name already exists</span>
+            <br><br>
+
+            Company earnings:
+            <input name="earnings" type="number" ng-model="companiesCtrl.newCompany.earnings"
+                   placeholder="Enter earnings..." required>
+            <br><br>
+
+            Company type:
+            <select ng-model="companiesCtrl.newCompany.type">
+                <option value="">Main</option>
+                <option value="sub">Sub</option>
+            </select>
+            <br><br>
+
+            <div ng-if="companiesCtrl.checkType()">
+                Parent company:
+                <select ng-options="company.name for company in companiesCtrl.allCompanies"
+                        ng-model="companiesCtrl.newCompany.parent" required>
+                    <option value="">-- choose company --</option>
+                </select>
+                <br><br>
+            </div>
+
+            <button type="submit" ng-bind="companiesCtrl.form.submitLabel"></button>
+
+            <input type="button" value="Cancel" ng-click="companiesCtrl.cancelEditing()"
+                   ng-show="companiesCtrl.form.editingCompany">
+        </form>
+    </div>
+
+    <script src="app.js"></script>
+
+    <script type="text/ng-template" id="tree.template.html">
+        {{ company.name }} |&nbsp; {{ company.earnings }} &nbsp;|&nbsp; <b>{{ company.totalEarnings }}</b> &nbsp;|
+        <button ng-click="companiesCtrl.startEditing(company)"
+                ng-show="!companiesCtrl.form.editingCompany">Edit</button>
+
+        <button ng-click="companiesCtrl.deleteCompany(company, $index)"
+                ng-show="!companiesCtrl.form.editingCompany">Delete</button>
+
+        <ul>
+            <li ng-repeat="company in company.children" ng-include="'tree.template.html'"></li>
+        </ul>
+    </script>
+</body>
+</html>

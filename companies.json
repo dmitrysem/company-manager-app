@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Company1",
+    "earnings": 25
+  },
+  {
+    "name": "Company2",
+    "earnings": 15,
+    "parentName": "Company1"
+  },
+  {
+    "name": "Company3",
+    "earnings": 10,
+    "parentName": "Company1"
+  },
+  {
+    "name": "Company4",
+    "earnings": 5,
+    "parentName": "Company2"
+  },
+  {
+    "name": "Company5",
+    "earnings": 3,
+    "parentName": "Company2"
+  }
+]
