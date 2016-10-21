@@ -2,9 +2,13 @@ var http = require('http');
 var fs = require('fs');
 var url = require('url');
 
+var config = JSON.parse(process.env.APP_CONFIG);
+var port = process.env.PORT;
+
 var mongo = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
-var urlDB = 'mongodb://localhost:27017/company-manager-db';
+//var urlDB = 'mongodb://localhost:27017/company-manager-db';
+var urlDB = 'mongodb://' + config.mongo.user + ':mypass@' + config.mongo.hostString;
 
 var server = http.createServer(function(req, res) {
     var urlParsed = url.parse(req.url, true);
@@ -25,7 +29,7 @@ var server = http.createServer(function(req, res) {
             res.end('Page Not Found');
             break;
     }
-}).listen(8080);
+}).listen(port);
 
 // ---
 
