@@ -1,7 +1,7 @@
 var app = angular.module('companiesManagerApp', ['ngResource']);
 
 app.factory('Companies', ['$resource', function($resource) {
-    return $resource('http://companies-manager-app.eu-2.evennode.com/companies', null, {
+    return $resource('/companies', null, {
         'update': { method: 'PUT' }
     });
 }]);

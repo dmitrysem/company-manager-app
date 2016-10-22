@@ -14,13 +14,13 @@ var server = http.createServer(function(req, res) {
     var urlParsed = url.parse(req.url, true);
 
     switch (urlParsed.pathname) {
-        /* case '/':
+        case '/':
             sendFile('./index.html', res);
             break;
         case '/index.html':
         case '/app.js':
             sendFile('.' + urlParsed.pathname, res);
-            break; */
+            break;
         case '/companies':
             processRequest(urlParsed.query, req, res);
             break;
