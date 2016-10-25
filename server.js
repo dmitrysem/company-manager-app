@@ -54,14 +54,14 @@ function processRequest(query, req, res) {
         var companies = db.collection('companies');
 
         // ---for testing purposes---
-        companies.deleteMany({}, function(err, result) {
+        /*companies.deleteMany({}, function(err, result) {
             if (err) throw err;
             console.log(result);
 
             db.close();
             res.end();
         });
-        return;
+        return;*/
 
         switch (req.method) {
             case 'POST':
