@@ -56,6 +56,10 @@ app.controller('CompaniesController', ['Companies', function(Companies) {
             self.removeFromTree(company, index);
             self.removeFromAll(company);
         });
+
+        company.children.forEach(function(childCompany) {
+            self.deleteCompany(childCompany);
+        });
     };
 
     self.submitForm = function() {
@@ -150,6 +154,10 @@ app.controller('CompaniesController', ['Companies', function(Companies) {
 
     self.addToAll = function(company) {
         self.allCompanies.push(company);
+
+        company.children.forEach(function(childCompany) {
+            self.addToAll(childCompany);
+        });
     };
 
     self.removeFromAll = function(company) {
