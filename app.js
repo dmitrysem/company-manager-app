@@ -156,6 +156,10 @@ app.controller('CompaniesController', ['Companies', function(Companies) {
         var index = self.allCompanies.indexOf(company);
         if (!~index) return;
         self.allCompanies.splice(index, 1);
+
+        company.children.forEach(function(childCompany) {
+            self.removeFromAll(childCompany);
+        });
     };
 
     self.addToTree = function(company) {
